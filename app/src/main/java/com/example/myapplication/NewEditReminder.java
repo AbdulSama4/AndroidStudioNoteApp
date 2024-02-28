@@ -107,42 +107,48 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
 
     private void initTextChangedEvents() {
         final EditText etSubject = findViewById(R.id.editSubject);
-        etSubject.addTextChangedListener(new TextWatcher() {
+        final EditText etDescription = findViewById(R.id.editDescription);
+        final ToggleButton editToggle = findViewById(R.id.offToggleButton);
+
+        etSubject.setEnabled(editToggle.isChecked());
+        etDescription.setEnabled(editToggle.isChecked());
+
+        editToggle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                currentReminder.setSubject(etSubject.getText().toString());
-
-
+            public void onClick(View view) {
+                boolean enabled = editToggle.isChecked();
+                etSubject.setEnabled(enabled);
+                etDescription.setEnabled(enabled);
             }
         });
 
-        final EditText etDescription = findViewById(R.id.editDescription);
         etSubject.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                currentReminder.setDescription(etDescription.getText().toString());
+                //currentReminder.setSubject(etSubject.getText().toString());
+            }
+        });
 
+        etDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //currentReminder.setDescription(etDescription.getText().toString());
             }
         });
     }
