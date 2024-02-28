@@ -13,10 +13,13 @@ import java.util.Calendar;
 
 public class CalendarDatePickerDialog extends DialogFragment {
 
+    private final Reminder currentReminder;
     Calendar selectedDate;
 
-    public CalendarDatePickerDialog() {
+    public CalendarDatePickerDialog(Reminder reminder) {
         //empty required
+        this.currentReminder = reminder;
+        this.selectedDate = currentReminder.getDate();
     }
 
     @Override
@@ -24,7 +27,7 @@ public class CalendarDatePickerDialog extends DialogFragment {
         final View view = inflater.inflate(R.layout.activity_select_calendar_date, container);
 
         getDialog().setTitle("Select Date");
-        selectedDate = Calendar.getInstance();
+        //selectedDate = Calendar.getInstance();
 
         final CalendarView cv = view.findViewById(R.id.calendarView);
         cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {

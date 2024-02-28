@@ -84,22 +84,24 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
 
     @Override
     public void didFinishCalendarDatePickerDialog(Calendar selectedTime) {
-
-        TextView date = findViewById(R.id.textViewCalendar);
-        date.setText(DateFormat.format("MM/dd/yyyy",
-                selectedTime));
-        currentReminder.setDate(selectedTime);
+        if (currentReminder != null) { // Check if currentReminder is not null
+            TextView date = findViewById(R.id.textViewCalendar);
+            date.setText(DateFormat.format("MM/dd/yyyy", selectedTime));
+            currentReminder.setDate(selectedTime);
+        }
 
     }
 
     private void initChangeDateButton() {
         Button changeDate = findViewById(R.id.calendarButton);
         changeDate.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
+                if (currentReminder == null) {
+                    currentReminder = new Reminder();
+                }
                 FragmentManager fm = getSupportFragmentManager();
-                CalendarDatePickerDialog calendarDatePickerDialog = new CalendarDatePickerDialog();
+                CalendarDatePickerDialog calendarDatePickerDialog = new CalendarDatePickerDialog(currentReminder);
                 calendarDatePickerDialog.show(fm, "DatePick");
             }
         });
@@ -133,7 +135,9 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
 
             @Override
             public void afterTextChanged(Editable s) {
-                //currentReminder.setSubject(etSubject.getText().toString());
+                if (currentReminder != null) {
+                    currentReminder.setSubject(etSubject.getText().toString());
+                }
             }
         });
 
@@ -148,7 +152,9 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
 
             @Override
             public void afterTextChanged(Editable s) {
-                //currentReminder.setDescription(etDescription.getText().toString());
+                if (currentReminder != null) {
+                    currentReminder.setDescription(etDescription.getText().toString());
+                }
             }
         });
     }
