@@ -162,7 +162,7 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
         });
     }
 
-    private void initSaveButton() {
+ private void initSaveButton() {
         Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +171,19 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
                 if (currentReminder == null) {
                     currentReminder = new Reminder();
                 }
+
+                // Gather user input from UI components
+                EditText etSubject = findViewById(R.id.editSubject);
+                EditText etDescription = findViewById(R.id.editDescription);
+                RadioGroup rgPriority = findViewById(R.id.radioGroup);
+
+                String subject = etSubject.getText().toString();
+                String description = etDescription.getText().toString();
+
+                // Set user input to the currentReminder object
+                currentReminder.setSubject(subject);
+                currentReminder.setDescription(description);
+                setPriorityFromRadioButtonId(rgPriority.getCheckedRadioButtonId());
 
                 boolean wasSuccessful;
                 ReminderDataSource ds = new ReminderDataSource(NewEditReminder.this);
