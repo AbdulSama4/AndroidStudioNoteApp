@@ -11,6 +11,8 @@ public class Reminder {
 
     private Calendar date;
 
+    private int priority;
+
     public Reminder() {
         reminderID = -1;
         date = Calendar.getInstance();

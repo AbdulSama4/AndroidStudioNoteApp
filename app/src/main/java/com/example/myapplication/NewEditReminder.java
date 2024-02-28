@@ -209,12 +209,12 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
                 RadioButton rbMedium = findViewById(R.id.radioMediumButton);
                 RadioButton rbHigh = findViewById(R.id.radioHighButton);
 
-                if (checkedId == rbLow.getId()) {
-                    currentReminder.setPriority("Low");
-                } else if (checkedId == rbMedium.getId()) {
-                    currentReminder.setPriority("Medium");
-                } else if (checkedId == rbHigh.getId()) {
-                    currentReminder.setPriority("High");
+                if (rbHigh.isChecked()) {
+                    currentReminder.setPriority(3);
+                } else if (rbMedium.isChecked()) {
+                    currentReminder.setPriority(2);
+                } else {
+                    currentReminder.setPriority(1);
                 }
             }
         });

@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -17,38 +16,45 @@ public class ReminderAdapter extends ArrayAdapter<Reminder> {
     private final ArrayList<Reminder> reminderData;
     private View.OnClickListener mOnItemClickListener;
     private boolean isDeleting;
-    private Context parentContext;
+    private final Context parentContext;
 
     public ReminderAdapter(ArrayList<Reminder> arrayList, Context context) {
+        super(context, R.layout.list_reminders, arrayList);
         reminderData = arrayList;
         parentContext = context;
-    }
-
-    public ReminderAdapter(ArrayList<Reminder> arrayList) {
-        reminderData = arrayList;
     }
 
     public void setmOnItemClickListener(View.OnClickListener itemClickListener) {
         mOnItemClickListener = itemClickListener;
     }
 
-
-
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_reminders, parent, false);
-        return new ReminderViewHolder(v);
-    }
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_reminders, parent, false);
+        }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        ReminderViewHolder rvh = (ReminderViewHolder) holder;
-        rvh.getSubjectTextView().setText(reminderData.get(position).getSubject());
-        rvh.getDateTextView().setText(String.valueOf(reminderData.get(position).getDate().getTime()));
-        //rvh.getCriticalityText().setText(reminderData.get(position).get());
+        Reminder reminder = reminderData.get(position);
 
+        TextView textSubject = convertView.findViewById(R.id.textSubject);
+        TextView textDate = convertView.findViewById(R.id.textDate);
+        TextView textCriticality = convertView.findViewById(R.id.textCriticality);
 
+        textSubject.setText(reminder.getSubject());
+        textDate.setText(String.valueOf(reminder.getDate().getTime()));
+        textCriticality.setText(reminder.getPriority());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onClick(v);
+                }
+            }
+        });
+
+        return convertView;
     }
 
     public void setDelete(boolean b) {
@@ -70,39 +76,6 @@ public class ReminderAdapter extends ArrayAdapter<Reminder> {
             }
         } catch (Exception e) {
             Toast.makeText(parentContext, "Delete Failed!", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return reminderData.size();
-    }
-
-    public class ReminderViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView textSubject;
-        public TextView textCriticality;
-        public TextView textDate;
-
-        public ReminderViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textSubject = itemView.findViewById(R.id.textSubject);
-            textDate = itemView.findViewById(R.id.textDate);
-            textCriticality = itemView.findViewById(R.id.textCriticality);
-            itemView.setTag(this);
-            itemView.setOnClickListener(mOnItemClickListener);
-        }
-
-        public TextView getSubjectTextView() {
-            return textSubject;
-        }
-
-        public TextView getDateTextView() {
-            return textDate;
-        }
-
-        public TextView getCriticalityTextView() {
-            return textCriticality;
         }
     }
 }
