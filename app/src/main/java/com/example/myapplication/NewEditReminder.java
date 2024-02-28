@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.mobileappdevproject;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
         initChangeDateButton();
         initToggleOnOffButton();
         initTextChangedEvents();
+        initPriorityButtons();
     }
 
     private void initAllButton() {
@@ -163,10 +165,12 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
     private void initSaveButton() {
         Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View view) {
+                // Initialize currentReminder if it is null
+                if (currentReminder == null) {
+                    currentReminder = new Reminder();
+                }
 
                 boolean wasSuccessful;
                 ReminderDataSource ds = new ReminderDataSource(NewEditReminder.this);
@@ -176,14 +180,12 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
                     if (currentReminder.getReminderID() == -1) {
                         wasSuccessful = ds.insertReminder(currentReminder);
                         if (wasSuccessful) {
-
                             int newId = ds.getLastReminderID();
-
                             currentReminder.setReminderID(newId);
-
                         }
                     } else {
                         wasSuccessful = ds.updateReminder(currentReminder);
+                        Toast.makeText(NewEditReminder.this, "Reminder Save Unsuccessful", Toast.LENGTH_SHORT).show();
                     }
                     ds.close();
                 } catch (Exception e) {
@@ -193,29 +195,38 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
                     ToggleButton editToggle = findViewById(R.id.offToggleButton);
                     editToggle.toggle();
                     setForEditing(false);
+                    Toast.makeText(NewEditReminder.this, "Reminder Saved Successfully", Toast.LENGTH_SHORT).show();
                 }
-
             }
-
         });
     }
+
 
     public void initPriorityButtons() {
         RadioGroup rgPriority = findViewById(R.id.radioGroup);
         rgPriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton rbLow = findViewById(R.id.radioLowButton);
-                RadioButton rbMedium = findViewById(R.id.radioMediumButton);
-                RadioButton rbHigh = findViewById(R.id.radioHighButton);
+                setPriorityFromRadioButtonId(checkedId);
+            }
+        });
+    }
 
-                if (rbHigh.isChecked()) {
-                    currentReminder.setPriority(3);
-                } else if (rbMedium.isChecked()) {
-                    currentReminder.setPriority(2);
-                } else {
-                    currentReminder.setPriority(1);
-                }
+    private void setPriorityFromRadioButtonId(int checkedId) {
+        RadioButton rbLow = findViewById(R.id.radioLowButton);
+        RadioButton rbMedium = findViewById(R.id.radioMediumButton);
+        RadioButton rbHigh = findViewById(R.id.radioHighButton);
+        currentReminder.setPriority(1);
+
+        if (rbHigh.getId() == checkedId) {
+            currentReminder.setPriority(3);
+        } else if (rbMedium.getId() == checkedId) {
+            currentReminder.setPriority(2);
+        } else if (rbLow.getId() == checkedId) {
+            currentReminder.setPriority(1);
+        }
+    }
+}
             }
         });
     }
