@@ -14,37 +14,46 @@ public class Reminder {
     public Reminder() {
         reminderID = -1;
         date = Calendar.getInstance();
+        priority = -1;
     }
 
     public int getReminderID() {
         return reminderID;
     }
 
-    public void setReminderID(int i) {
-        reminderID = i;
+    public void setReminderID(int reminderID) {
+        this.reminderID = reminderID;
     }
 
     public String getSubject() {
         return subject;
     }
 
-    public void setSubject(String s) {
-        subject = s;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String s) {
-        description = s;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public Calendar getDate() {
         return date;
     }
 
-    public void setDate(Calendar c) {
-        date = c;
+    public void setDate(Calendar date) {
+        this.date = date;
     }
 }

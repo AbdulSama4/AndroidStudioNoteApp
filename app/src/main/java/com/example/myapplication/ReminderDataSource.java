@@ -34,6 +34,7 @@ public class ReminderDataSource {
 
             initialValues.put("subject", r.getSubject());
             initialValues.put("description", r.getDescription());
+            initialValues.put("priority", r.getPriority());
             initialValues.put("date", String.valueOf(r.getDate().getTimeInMillis()));
 
 
@@ -55,6 +56,7 @@ public class ReminderDataSource {
 
             updateValues.put("subject", r.getSubject());
             updateValues.put("description", r.getDescription());
+            updateValues.put("priority", r.getPriority());
             updateValues.put("date", String.valueOf(r.getDate().getTimeInMillis()));
 
             didSucceed = database.update("reminder", updateValues, "_id=" + rowId, null) > 0;
@@ -66,7 +68,7 @@ public class ReminderDataSource {
     }
 
     public int getLastReminderID() {
-        int lastId;
+        int lastId = -1;
         try {
             String query = "Select MAX(_id) from reminder";
             Cursor cursor = database.rawQuery(query, null);
@@ -80,23 +82,23 @@ public class ReminderDataSource {
         return lastId;
     }
 
-    public ArrayList<String> getSubject() {
-        ArrayList<String> subject = new ArrayList<>();
-        try {
-            String query = "Select subject from reminder";
-            Cursor cursor = database.rawQuery(query, null);
+    //public ArrayList<String> getSubject() {
+    // ArrayList<String> subject = new ArrayList<>();
+    //try {
+    // String query = "Select subject from reminder";
+    // Cursor cursor = database.rawQuery(query, null);
 
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                subject.add(cursor.getString(0));
-                cursor.moveToNext();
-            }
-            cursor.close();
-        } catch (Exception e) {
-            subject = new ArrayList<String>();
-        }
-        return subject;
-    }
+    // cursor.moveToFirst();
+    // while (!cursor.isAfterLast()) {
+    //   subject.add(cursor.getString(0));
+    //    cursor.moveToNext();
+    //  }
+    //  cursor.close();
+    // } catch (Exception e) {
+    //     subject = new ArrayList<String>();
+    // }
+    // return subject;
+    //}
 
     public ArrayList<Reminder> getReminders(String sortField, String sortOrder) {
         ArrayList<Reminder> reminders = new ArrayList<>();
@@ -111,9 +113,11 @@ public class ReminderDataSource {
                 newReminder.setReminderID(cursor.getInt(0));
                 newReminder.setSubject(cursor.getString(1));
                 newReminder.setDescription(cursor.getString(2));
+                newReminder.setPriority(cursor.getInt(3));
                 Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(Long.valueOf(cursor.getString(3)));
+                calendar.setTimeInMillis(Long.valueOf(cursor.getString(4)));
                 newReminder.setDate(calendar);
+
                 reminders.add(newReminder);
                 cursor.moveToNext();
             }
@@ -133,6 +137,7 @@ public class ReminderDataSource {
             reminder.setReminderID(cursor.getInt(0));
             reminder.setSubject(cursor.getString(1));
             reminder.setDescription(cursor.getString(2));
+            reminder.setPriority(cursor.getInt(3));
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(Long.valueOf(cursor.getString(4)));

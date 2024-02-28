@@ -13,7 +13,7 @@ public class ReminderDBHelper extends SQLiteOpenHelper {
     //DB CREATION SQL STATEMENT
 
     private static final String CREATE_TABLE_REMINDER =
-            "create table reminder (_id integer primary key autoincrement, " + "subject text not null, description text, date text);";
+            "create table reminder (_id integer primary key autoincrement, " + "subject text not null, description text," + "priority integer, date text);";
 
     public ReminderDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

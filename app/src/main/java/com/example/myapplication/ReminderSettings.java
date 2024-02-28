@@ -40,5 +40,9 @@ public class ReminderSettings extends AppCompatActivity {
         });
     }
 
+    private void initSettings() {
+
+    }
+
 
 }

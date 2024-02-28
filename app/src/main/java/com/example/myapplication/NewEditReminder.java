@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -196,6 +197,26 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
 
             }
 
+        });
+    }
+
+    public void initPriorityButtons() {
+        RadioGroup rgPriority = findViewById(R.id.radioGroup);
+        rgPriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rbLow = findViewById(R.id.radioLowButton);
+                RadioButton rbMedium = findViewById(R.id.radioMediumButton);
+                RadioButton rbHigh = findViewById(R.id.radioHighButton);
+
+                if (checkedId == rbLow.getId()) {
+                    currentReminder.setPriority("Low");
+                } else if (checkedId == rbMedium.getId()) {
+                    currentReminder.setPriority("Medium");
+                } else if (checkedId == rbHigh.getId()) {
+                    currentReminder.setPriority("High");
+                }
+            }
         });
     }
 }
