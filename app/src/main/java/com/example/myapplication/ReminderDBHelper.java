@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.mobileappdevproject;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +8,7 @@ import android.util.Log;
 public class ReminderDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "myreminders.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     //DB CREATION SQL STATEMENT
 
