@@ -31,24 +31,20 @@ public class ReminderAdapter extends RecyclerView.Adapter {
         mOnItemClickListener = itemClickListener;
     }
 
-    @NonNull
-    //@Override
-    public RecyclerView.ViewHolder onCreateViewViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_reminders, parent, false);
-        return new ReminderViewHolder(v);
-    }
+
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_reminders, parent, false);
+        return new ReminderViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         ReminderViewHolder rvh = (ReminderViewHolder) holder;
-        //rvh.getSubjectText().setText(reminderData.get(position).getSubject());
-        //rvh.getDateText().setText(reminderData.get(position).getDate());
+        rvh.getSubjectTextView().setText(reminderData.get(position).getSubject());
+        rvh.getDateTextView().setText(String.valueOf(reminderData.get(position).getDate().getTime()));
         //rvh.getCriticalityText().setText(reminderData.get(position).get());
 
 

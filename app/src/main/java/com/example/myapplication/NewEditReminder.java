@@ -26,6 +26,13 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
+
+        initAllButton();
+        initSettingsButton();
+        initSaveButton();
+        initChangeDateButton();
+        initToggleOnOffButton();
+        initTextChangedEvents();
     }
 
     private void initAllButton() {
