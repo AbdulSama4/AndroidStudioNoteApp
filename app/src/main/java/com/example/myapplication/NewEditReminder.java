@@ -47,7 +47,7 @@ public class NewEditReminder extends AppCompatActivity implements CalendarDatePi
     }
 
     private void initSettingsButton() {
-        ImageButton ibSetting = findViewById(R.id.allButton);
+        ImageButton ibSetting = findViewById(R.id.settingButton);
         ibSetting.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(NewEditReminder.this, ReminderSettings.class);
