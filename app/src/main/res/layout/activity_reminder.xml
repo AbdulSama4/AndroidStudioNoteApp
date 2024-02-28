@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,7 +35,7 @@
             android:layout_marginLeft="32dp"
             android:layout_marginRight="16dp"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="Save" />
     </LinearLayout>
 
     <TextView
@@ -54,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/editSubject"
         android:layout_width="300dp"
         android:layout_height="43dp"
         android:layout_marginStart="11dp"
@@ -70,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/editDescription"
         android:layout_width="387dp"
         android:layout_height="300dp"
         android:layout_marginStart="11dp"
@@ -82,57 +81,73 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/editSubject" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/calendarButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="83dp"
         android:text="Calendar"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="469dp" />
+        app:layout_constraintEnd_toStartOf="@+id/textViewCalendar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewCalendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="114dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="245dp"
-        tools:layout_editor_absoluteY="484dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/calendarButton"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
 
     <RadioGroup
-        android:layout_width="172dp"
-        android:layout_height="117dp"
+        android:id="@+id/radioGroup"
+        android:layout_width="102dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="52dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="535dp">
+        app:layout_constraintEnd_toStartOf="@+id/saveCriticalityButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarButton">
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radioLowButton"
             android:layout_width="181dp"
             android:layout_height="35dp"
             android:text="Low" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/radioMediumButton"
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:text="Medium" />
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioHighButton"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:text="High" />
     </RadioGroup>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/saveCriticalityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        tools:layout_editor_absoluteX="223dp"
-        tools:layout_editor_absoluteY="552dp" />
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="51dp"
+        android:text="Save Criticality"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCalendar" />
 
     <LinearLayout
         android:layout_width="413dp"
